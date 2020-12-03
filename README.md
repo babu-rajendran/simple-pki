@@ -78,6 +78,20 @@ echo 01 > ca/signing-ca/db/signing-ca.crl.srl
 <img width="947" alt="image4" src="https://user-images.githubusercontent.com/6368257/101061662-ba3fde80-35b6-11eb-8f4e-1b619e070450.png">
 <img width="130" alt="image20" src="https://user-images.githubusercontent.com/6368257/101061750-d479bc80-35b6-11eb-9a7b-7d581779f737.png">
 
+Create the signing CA request:
+
+Use the “openssl req -new” command as given below to create a private key and a certificate signing request for the signing CA.
+
+```
+openssl req -new \
+    -config etc/signing-ca.conf \
+    -out ca/signing-ca.csr \
+    -keyout ca/signing-ca/private/signing-ca.key
+```
+
+<img width="946" alt="image1" src="https://user-images.githubusercontent.com/6368257/101061994-1b67b200-35b7-11eb-9995-659cfc5fac39.png">
+<img width="611" alt="image9" src="https://user-images.githubusercontent.com/6368257/101062132-44884280-35b7-11eb-9d78-d8e4e8dc32f9.png">
+<img width="725" alt="image11" src="https://user-images.githubusercontent.com/6368257/101062205-5e298a00-35b7-11eb-8931-26929cec9b30.png">
 
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
