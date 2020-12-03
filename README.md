@@ -93,5 +93,20 @@ openssl req -new \
 <img width="611" alt="image9" src="https://user-images.githubusercontent.com/6368257/101062132-44884280-35b7-11eb-9d78-d8e4e8dc32f9.png">
 <img width="725" alt="image11" src="https://user-images.githubusercontent.com/6368257/101062205-5e298a00-35b7-11eb-8931-26929cec9b30.png">
 
+Create the signing CA certificate:
+
+Next we will use the “openssl ca” command to issue a signing CA certificate based on the certificate signing request(CSR) created in the previous step.
+
+```
+openssl ca \
+    -config etc/root-ca.conf \
+    -in ca/signing-ca.csr \
+    -out ca/signing-ca.crt \
+    -extensions signing_ca_ext
+```
+
+<img width="670" alt="image13" src="https://user-images.githubusercontent.com/6368257/101062419-a2b52580-35b7-11eb-91bc-6ae162e3f605.png">
+<img width="248" alt="image16" src="https://user-images.githubusercontent.com/6368257/101062564-caa48900-35b7-11eb-9613-856e3db64f5a.png">
+
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
