@@ -59,6 +59,25 @@ openssl ca -selfsign \
 <img width="891" alt="image10" src="https://user-images.githubusercontent.com/6368257/101060985-04749000-35b6-11eb-9d20-7d1a339320e2.png">
 <img width="891" alt="image8" src="https://user-images.githubusercontent.com/6368257/101061141-2c63f380-35b6-11eb-8f04-27e226d585dd.png">
 
+#### Create Signing CA:
+
+Create the directories to hold the signing CA resources:
+```
+mkdir -p ca/signing-ca/private ca/signing-ca/db
+chmod 700 ca/signing-ca/private
+```
+
+Create the database for signing CA:
+```
+cp /dev/null ca/signing-ca/db/signing-ca.db
+cp /dev/null ca/signing-ca/db/signing-ca.db.attr
+echo 01 > ca/signing-ca/db/signing-ca.crt.srl
+echo 01 > ca/signing-ca/db/signing-ca.crl.srl
+```
+
+<img width="947" alt="image4" src="https://user-images.githubusercontent.com/6368257/101061662-ba3fde80-35b6-11eb-8f4e-1b619e070450.png">
+<img width="130" alt="image20" src="https://user-images.githubusercontent.com/6368257/101061750-d479bc80-35b6-11eb-9a7b-7d581779f737.png">
+
 
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
