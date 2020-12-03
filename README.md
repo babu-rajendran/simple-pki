@@ -108,5 +108,40 @@ openssl ca \
 <img width="670" alt="image13" src="https://user-images.githubusercontent.com/6368257/101062419-a2b52580-35b7-11eb-91bc-6ae162e3f605.png">
 <img width="248" alt="image16" src="https://user-images.githubusercontent.com/6368257/101062564-caa48900-35b7-11eb-9613-856e3db64f5a.png">
 
+#### Create TLS server certificate:
+
+To create the TLS server certificate first we need to create the TLS server request using the command below. This will create a private key and a certificate signing request for the TLS server certificate.
+
+```
+SAN=DNS:www.simple.org \
+openssl req -new \
+    -config etc/server.conf \
+    -out certs/simple.org.csr \
+    -keyout certs/simple.org.key
+```
+
+<img width="833" alt="image2" src="https://user-images.githubusercontent.com/6368257/101062936-3d156900-35b8-11eb-8282-51c9fc6cea6b.png">
+
+Using the signing CA and the CSR created from the previous step, a server certificate can be issued with the following command.
+
+```
+openssl ca \
+    -config etc/signing-ca.conf \
+    -in certs/simple.org.csr \
+    -out certs/simple.org.crt \
+    -extensions server_ext
+```
+
+<img width="678" alt="image5" src="https://user-images.githubusercontent.com/6368257/101063129-7b128d00-35b8-11eb-867d-4293f3020349.png">
+<img width="891" alt="image8" src="https://user-images.githubusercontent.com/6368257/101063202-8e255d00-35b8-11eb-839d-01c8b809f1f5.png">
+<img width="946" alt="image19" src="https://user-images.githubusercontent.com/6368257/101063245-9e3d3c80-35b8-11eb-86ec-1f239c3e458a.png">
+
+We can view the TLS certificate created in the certs folder:
+
+<img width="622" alt="image17" src="https://user-images.githubusercontent.com/6368257/101063383-bc0aa180-35b8-11eb-8018-bfcb52c366bb.png">
+<img width="748" alt="image12" src="https://user-images.githubusercontent.com/6368257/101063536-e8beb900-35b8-11eb-8048-42e272c69a5d.png">
+<img width="730" alt="image18" src="https://user-images.githubusercontent.com/6368257/101063619-01c76a00-35b9-11eb-83c5-1a62ede8e639.png">
+<img width="668" alt="image3" src="https://user-images.githubusercontent.com/6368257/101063694-199eee00-35b9-11eb-95ed-0334fb38ec2c.png">
+
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
