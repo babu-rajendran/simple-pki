@@ -143,5 +143,47 @@ We can view the TLS certificate created in the certs folder:
 <img width="730" alt="image18" src="https://user-images.githubusercontent.com/6368257/101063619-01c76a00-35b9-11eb-83c5-1a62ede8e639.png">
 <img width="668" alt="image3" src="https://user-images.githubusercontent.com/6368257/101063694-199eee00-35b9-11eb-95ed-0334fb38ec2c.png">
 
+#### Install TLS server certificate on Tomcat:
+
+We will use the generated TLS certificate above to configure Tomcat to work with SSL. For that , we need to generate a keystore which has the complete certificate chain beginning from the root and up until the server. 
+
+Prepare the keystore file and add the root and signing certificate:
+
+```
+keytool -import -alias root-ca -keystore certs/simple.jks -trustcacerts -file ca/root-ca.crt
+keytool -import -alias signing-ca -keystore certs/simple.jks -trustcacerts -file ca/signing-ca.crt
+```
+
+<img width="1014" alt="Screen Shot 2020-12-07 at 12 53 47 PM" src="https://user-images.githubusercontent.com/6368257/101324780-c4046300-3890-11eb-882f-ca04a90173d5.png">
+
+<img width="1011" alt="Screen Shot 2020-12-07 at 12 55 36 PM" src="https://user-images.githubusercontent.com/6368257/101324800-c961ad80-3890-11eb-89da-3c80d5f4ee02.png">
+
+Generate the certificate-key pair for the server:
+
+```
+openssl pkcs12 -export -name "tomcat" -inkey certs/simple.org.key -in certs/simple.org.crt -out certs/simple.p12
+```
+
+<img width="1009" alt="Screen Shot 2020-12-07 at 12 56 48 PM" src="https://user-images.githubusercontent.com/6368257/101324821-cd8dcb00-3890-11eb-8124-15befa12ce64.png">
+
+Import the certificate-key pair to the keystore:
+
+```
+keytool -importkeystore -srckeystore certs/simple.p12 -destkeystore certs/simple.jks -srcstoretype pkcs12 -alias tomcat
+```
+
+<img width="1013" alt="Screen Shot 2020-12-07 at 12 59 21 PM" src="https://user-images.githubusercontent.com/6368257/101324841-d7afc980-3890-11eb-814e-3a91ec28c7cf.png">
+
+Once the keystore is ready, then in Tomcat, the SSL configuration needs to be made in “server.xml” which is located in the “conf” directory of the Tomcat installation.
+
+```
+<Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+    sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
+    port="8443" maxThreads="150" SSLEnabled="true" scheme="https"
+    secure="true" keyAlias="tomcat"  keystoreFile="/home/babu/github/simple-pki/certs/simple.jks"
+    keystorePass="changeit" clientAuth="false" sslProtocol="TLS" />
+```
+![2woE9DG](https://user-images.githubusercontent.com/6368257/101324898-e8f8d600-3890-11eb-9c32-0bc3407c60ae.png)
+
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
