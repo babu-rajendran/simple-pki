@@ -183,6 +183,8 @@ Once the keystore is ready, then in Tomcat, the SSL configuration needs to be ma
     secure="true" keyAlias="tomcat"  keystoreFile="/home/babu/github/simple-pki/certs/simple.jks"
     keystorePass="changeit" clientAuth="false" sslProtocol="TLS" />
 ```
+After the configuration change, restart Tomcat and navigate to https://localhost:8443/
+
 ![2woE9DG](https://user-images.githubusercontent.com/6368257/101324898-e8f8d600-3890-11eb-9c32-0bc3407c60ae.png)
 
 ### References:
