@@ -189,4 +189,5 @@ After the configuration change, restart Tomcat and navigate to https://localhost
 
 ### References:
 https://pki-tutorial.readthedocs.io/en/latest/simple/
+
 https://medium.com/@superseb/get-your-certificate-chain-right-4b117a9c0fce
